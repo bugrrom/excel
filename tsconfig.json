@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "strict": true
+  }
+}

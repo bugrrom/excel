@@ -26,16 +26,17 @@ const jsLoader = () => {
   return loaders;
 };
 
+
 module.exports = {
   context: path.resolve(__dirname, 'src'),
   mode: 'development',
-  entry: ['@babel/polyfill', './index.js'],
+  entry: ['@babel/polyfill', './index.ts'],
   output: {
     filename: filename('js'),
     path: path.resolve(__dirname, 'dist'),
   },
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.js', '.ts'],
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -78,6 +79,22 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: jsLoader(),
+      },
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        loader: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-env',
+              '@babel/preset-typescript',
+            ],
+            plugins: [
+              '@babel/plugin-proposal-class-properties',
+            ],
+          },
+        },
       },
     ],
   },
