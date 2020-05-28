@@ -1,5 +1,10 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    // Движку нужен проект TS для правил с типами
+    "project": "tsconfig.json",
+    "tsconfigRootDir": ".",
+  },
   "env": {
     "es6": true,
     "browser": true,
@@ -9,5 +14,11 @@
     "LF": "off",
     "require-jsdoc": "off"
   },
-  "extends": ["eslint:recommended", "google"]
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "eslint:recommended",
+    "google",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+  ]
 }
