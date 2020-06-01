@@ -3,24 +3,30 @@ const CODES = {
   Z: 90,
 };
 
-function toCell() {
+function toCell(_: string, index: number) {
   return `
-        <div class="cell" contenteditable></div>
+        <div class="cell" contenteditable data-col="${index}"></div>
     `;
 }
 
-function toColumn(el: string) {
+function toColumn(el: string, index: number) {
   return `
-        <div class="column">
+        <div class="column" data-type="resizable" data-col="${index}">
            ${el}
+           <div class="coll-resize" data-resize="coll"></div>
         </div>
     `;
 }
 
 function createRow(index: number|string, content: string): string {
+  // eslint-disable-next-line max-len
+  const resize = index ? ' <div class="row-resize" data-resize="row"></div>' : '';
   return `
-        <div class="row">
-            <div class="row-info">${index?index:''}</div>
+        <div class="row" data-type="resizable">
+            <div class="row-info">
+                ${index?index:''}
+               ${resize}
+            </div>
             <div class="row-data">${content}</div>
         </div>
     `;

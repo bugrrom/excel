@@ -1,6 +1,8 @@
+type selector = string | HTMLElement | null | undefined | Element
+
 class Dom {
-    $el: HTMLElement | null ;
-    constructor(selector: string|HTMLElement) {
+    $el: HTMLElement | Element | null | undefined ;
+    constructor(selector: selector) {
       this.$el = typeof selector === 'string' ?
           document.querySelector(selector) : selector;
     }
@@ -49,13 +51,41 @@ class Dom {
       }
       return this;
     }
+
+    get data() {
+      if (this.$el) {
+        return 'dataset' in this.$el ? this.$el.dataset : null;
+      }
+    }
+
+    closest(selector:string) {
+      return $(this.$el?.closest(selector));
+    }
+
+    getCoords() {
+      return this.$el?.getBoundingClientRect();
+    }
+
+    findAll(selector: string) {
+      return this.$el?.querySelectorAll(selector);
+    }
+
+    css(style = {}) {
+      Object.keys(style).forEach((el) =>{
+        if (this.$el) {
+          if ('style' in this.$el) {
+            this.$el.style[el] = style[el];
+          }
+        }
+      });
+    }
 }
 
-export function $(selector: string|HTMLElement) {
+export function $(selector: selector) {
   return new Dom(selector);
 }
 
-$.create = (tagName: string, classes: string = '') => {
+$.create = (tagName: string, classes = '') => {
   const el: HTMLElement = document.createElement(tagName);
   if (classes) {
     el.classList.add(classes);
