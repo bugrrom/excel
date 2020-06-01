@@ -1,18 +1,17 @@
 import {DOMListener} from './DOMListener';
 interface IOptional {
-  name: string,
-  listeners: string[]
+  name?: string,
+  listeners?: string[]
 }
 
 interface IExcelComponent {
-  name: string,
   toHTML: () => string,
   init: () => void,
   destroy: () => void
 }
 
-export class ExcelComponent extends DOMListener implements IExcelComponent{
-  name: string;
+export class ExcelComponent extends DOMListener implements IExcelComponent {
+  name: string | undefined;
   constructor($root: HTMLElement, options: IOptional);
   constructor($root: HTMLElement, options: IOptional = {}) {
     super($root, options.listeners);
@@ -27,7 +26,7 @@ export class ExcelComponent extends DOMListener implements IExcelComponent{
     this.initDomListeners();
   }
 
-  destroy(){
+  destroy() {
     this.removeDomListeners();
   }
 }
