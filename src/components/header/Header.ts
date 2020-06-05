@@ -1,7 +1,18 @@
 import {ExcelComponent} from '../../core/ExcelComponent';
+import { IOptional} from '../interface';
 
-export class Header extends ExcelComponent {
+interface IHeader {
+    toHTML: () => string
+}
+
+export class Header extends ExcelComponent implements IHeader{
     static className = 'excel__header';
+    constructor($root: HTMLElement | Element, options: IOptional) {
+      super($root, {
+        name: 'Header',
+        ...options,
+      });
+    }
 
     toHTML(): string {
       return `

@@ -1,9 +1,14 @@
 import {capitalize} from './utils';
 
-export class DOMListener {
-    $root: any;
+interface IDomListener {
+    initDomListeners: () => void
+    removeDomListeners: () => void
+}
+
+export class DOMListener implements IDomListener {
+    $root: HTMLElement | Element;
     listeners: string[];
-    constructor($root: HTMLElement, listeners: string[] = []) {
+    constructor($root: HTMLElement | Element, listeners: string[] = []) {
       if (!$root) {
         throw new Error('No $root provided for DonListener');
       }

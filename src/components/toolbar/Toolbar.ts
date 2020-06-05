@@ -1,7 +1,18 @@
 import {ExcelComponent} from '../../core/ExcelComponent';
+import {IEmitter} from "../interface";
 
-export class Toolbar extends ExcelComponent {
+interface IToolbar {
+  toHTML: () => string
+}
+
+export class Toolbar extends ExcelComponent implements IToolbar{
   static className = 'excel__toolbar';
+  constructor($root: HTMLElement | Element, options: IEmitter) {
+    super($root, {
+      name: 'Toolbar',
+      ...options,
+    });
+  }
 
   toHTML(): string {
     return `

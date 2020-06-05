@@ -1,25 +1,37 @@
-import {$} from '../../core/dom';
+import {$, IDom} from '../../core/dom';
+import {Emitter} from '../../core/Emitter';
+import {Table} from '../table/Table';
+import {Formula} from '../folmula/Formula';
+import {Toolbar} from '../toolbar/Toolbar';
+import {Header} from '../header/Header';
 
-type Options = {
-    components: components
-}
 
 // eslint-disable-next-line no-undef
-type components = Array<any>
 
-export class Excel {
-    components: components;
-    $el: any;
-    constructor(selector: string, options: Options) {
+interface IExcel {
+    getRoot: () => IDom,
+    render: () => void
+}
+
+export class Excel implements IExcel {
+    $el: IDom;
+    emitter: Emitter;
+    components: (Header | Toolbar | Formula | Table)[];
+    constructor(selector: string,
+        options: { components: (Header | Toolbar | Formula | Table)[]; }) {
       this.$el = $(selector);
       this.components = options.components || [];
+      this.emitter = new Emitter();
     }
 
     getRoot() {
       const $root = $.create('div', 'excel');
+      const componentOptions = {
+        emitter: this.emitter,
+      }
       this.components = this.components.map((Component) => {
         const $el = $.create('div', Component.className);
-        const component = new Component($el);
+        const component = new Component($el, componentOptions);
         $el.html(component.toHTML());
         $root.append($el);
         return component;
@@ -32,5 +44,8 @@ export class Excel {
         this.$el.append(this.getRoot());
         this.components.forEach((component) => component.init());
       }
+    }
+    destroy() {
+      this.components.forEach((component) => component.destroy());
     }
 }
