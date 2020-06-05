@@ -1,13 +1,15 @@
 import {$} from '../../core/dom';
+import {IEvent} from '../interface';
 
-export function tableResize($root: any, event:any) {
+
+export function tableResize($root: HTMLElement | Element, event: IEvent) {
   const $resizer = $(event.target);
   const $parent = $resizer.closest('[data-type="resizable"]');
   const coords = $parent.getCoords();
-  const type = $resizer.data.resize;
+  const type = $resizer.data ? $resizer.data.resize : null;
   let value: string;
   $resizer.css({opacity: 1});
-  const cells: HTMLElement[] =
+  const cells =
         $root.findAll(`[data-col="${$parent.data.col}"]`);
   document.onmousemove = (e) => {
     if (type === 'coll') {
