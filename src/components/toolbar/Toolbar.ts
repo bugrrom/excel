@@ -1,44 +1,49 @@
-import {ExcelComponent} from '../../core/ExcelComponent';
-import {IEmitter} from "../interface";
+import {IEvent, IOptional} from '../interface';
+import {createToolbar} from './toolbar.template';
+import {$} from '../../core/dom';
+import {ExcelStateComponent} from '../../core/ExcelStateComponent';
+import {initialState} from "../../constants";
 
 interface IToolbar {
   toHTML: () => string
 }
 
-export class Toolbar extends ExcelComponent implements IToolbar{
+export class Toolbar extends ExcelStateComponent implements IToolbar {
   static className = 'excel__toolbar';
-  constructor($root: HTMLElement | Element, options: IEmitter) {
+  constructor($root: HTMLElement | Element, options: IOptional) {
     super($root, {
       name: 'Toolbar',
+      listeners: ['click'],
       ...options,
+      subscribe: ['currentStyles'],
     });
   }
 
+  prepare() {
+    this.initState(initialState);
+  }
+
+  get template() {
+    return createToolbar(this.state);
+  }
+
   toHTML(): string {
-    return `
-      <div class="button">
-        <i class="material-icons">format_align_left</i>
-      </div>
+    return this.template;
+  }
 
-      <div class="button">
-        <i class="material-icons">format_align_center</i>
-      </div>
+  storeChanged(changes) {
+    this.setState(changes.currentStyles)
+  }
 
-      <div class="button">
-        <i class="material-icons">format_align_right</i>
-      </div>
-
-      <div class="button">
-        <i class="material-icons">format_bold</i>
-      </div>
-
-      <div class="button">
-        <i class="material-icons">format_italic</i>
-      </div>
-
-      <div class="button">
-        <i class="material-icons">format_underlined</i>
-      </div>
-    `;
+  onClick(event: IEvent) {
+    const $target = $(event.target);
+    if ($target.data) {
+      if ( $target.data.type === 'button') {
+        if ('value' in $target.data){
+          const value = JSON.parse(<string>$target.data.value);
+          this.$emit('toolbar:applyStyle', value);
+        }
+      }
+    }
   }
 }
