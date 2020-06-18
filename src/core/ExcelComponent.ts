@@ -1,5 +1,8 @@
 import {DOMListener} from './DOMListener';
 import {IEmitter, IOptional} from '../components/interface';
+import {IDom} from './dom';
+import { ICreateStore} from './createStore';
+import {actionType} from '../redux/rootReducer';
 
 
 interface IExcelComponent {
@@ -8,17 +11,22 @@ interface IExcelComponent {
   destroy: () => void,
   prepare: () => void
   $emit: (event: string, ...arg: string[]) => void
+  $dispatch: (action: actionType) => void
 }
 
 export class ExcelComponent extends DOMListener implements IExcelComponent {
   name: string | undefined;
   protected emitter: IEmitter;
   private unsunbscribers: (()=>void)[];
-  constructor($root: HTMLElement | Element, options: IOptional) {
+  private store: ICreateStore;
+  private subscribe: any;
+  constructor($root: HTMLElement | Element | IDom, options: IOptional) {
     super($root, options.listeners);
     this.name = options.name;
     this.emitter = options.emitter;
     this.unsunbscribers = [];
+    this.store = options.store;
+    this.subscribe = options.subscribe || [];
     this.prepare();
   }
 
@@ -35,12 +43,25 @@ export class ExcelComponent extends DOMListener implements IExcelComponent {
     this.unsunbscribers.push(unsub);
   }
 
+  $dispatch(action: actionType) {
+    this.store.dispatch(action);
+  }
+
+
   toHTML() {
     return '';
   }
 
+  storeChanged() {
+
+  }
+
   init() {
     this.initDomListeners();
+  }
+
+  isWatching(key: any) {
+    return this.subscribe.includes(key);
   }
 
   destroy() {

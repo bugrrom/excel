@@ -6,6 +6,7 @@ import {$} from '../../core/dom';
 interface IFormula {
   toHTML: () => string,
   onInput: (event: IEvent) => void,
+  storeChanged: (currentText: any) => void
 }
 
 export class Formula extends ExcelComponent implements IFormula {
@@ -15,6 +16,7 @@ export class Formula extends ExcelComponent implements IFormula {
     super($root, {
       name: 'Formula',
       listeners: ['input', 'keydown'],
+      subscribe: ['currentText'],
       ...option,
     });
   }
@@ -23,10 +25,7 @@ export class Formula extends ExcelComponent implements IFormula {
     super.init();
     this.$formula = this.$root.find('#formula');
     this.$on('table:select', ($cell) => {
-      this.$formula.text($cell.text());
-    });
-    this.$on('table:input', ($cell) => {
-      this.$formula.text($cell.text());
+      this.$formula.text($cell.data.value);
     });
   }
 
@@ -37,14 +36,18 @@ export class Formula extends ExcelComponent implements IFormula {
     `;
   }
 
+  storeChanged({currentText}) {
+    this.$formula.text(currentText);
+  }
+
   onInput(event: IEvent) {
     if (event.target) {
       this.$emit('Formula:input', <string>$(event.target).text());
     }
   }
 
-  onKeydown(event: KeyboardEvent){
-    const keys = ['Enter', 'Tab']
+  onKeydown(event: KeyboardEvent) {
+    const keys = ['Enter', 'Tab'];
     if (keys.includes(event.key)) {
       event.preventDefault();
       this.$emit('Formula:done');

@@ -1,3 +1,5 @@
+import {ICreateStore} from '../core/createStore';
+
 export interface IEvent {
     target: HTMLInputElement,
     ctrlKey?: KeyboardEvent,
@@ -10,7 +12,9 @@ export interface IEmitter {
 }
 
 export interface IOptional {
-    name?: string,
+    name?: string
     listeners?: string[]
     emitter: IEmitter
+    store: ICreateStore
+    subscribe? : string[]
 }
