@@ -8,5 +8,8 @@
       "dom"
     ],
     "strict": true
-  }
+  },
+  "include": [
+    "src"
+  ]
 }

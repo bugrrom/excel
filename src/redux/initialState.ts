@@ -1,7 +1,18 @@
-import {clone, storage} from '../core/utils';
+import {clone} from '../core/utils';
 import {defaultStyles} from '../constants';
 
-const defaultState = {
+interface iDefaultState {
+  colState: any,
+  rowState: any,
+  dataState: any,
+  stylesState: any,
+  currentText: string,
+  currentStyles: any,
+  title: string,
+  openedData: any
+}
+
+const defaultState: iDefaultState = {
   colState: {},
   rowState: {},
   dataState: {},
@@ -19,5 +30,5 @@ const normalize = (s) => ({
 });
 
 export function normalizeInitialState(state) {
-  return state ? normalize(state) : clone(defaultState)
+  return state ? normalize(state) : clone(defaultState);
 }

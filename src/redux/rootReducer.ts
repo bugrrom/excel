@@ -1,5 +1,12 @@
-import {APPLY_STYLE, CHANGE_TEXT, CURRENT_STYLE, TABLE_RESIZE, CHANGE_TITLE, UPDATE_DATE} from './type';
-import {toInlineStyles} from "../core/utils";
+import {
+  APPLY_STYLE,
+  CHANGE_TEXT,
+  CURRENT_STYLE,
+  TABLE_RESIZE,
+  CHANGE_TITLE,
+  UPDATE_DATE}
+  from './type';
+
 
 export type actionType = {type: string, data?: any}
 export type stateType = {
@@ -31,17 +38,17 @@ export function rootReducer(state: stateType, action: actionType) {
       val = state[field] || {};
       action.data.ids.forEach( (id) => {
         val[id] = {...val[id], ...action.data.value};
-      })
+      });
       return {
         ...state, [field]: val,
-        currentStyles: {...state.currentStyles, ...action.data.value}
-      }
-    case CHANGE_TITLE :
+        currentStyles: {...state.currentStyles, ...action.data.value},
+      };
+    case CHANGE_TITLE:
       return {
-        ...state, title: action.data
-      }
+        ...state, title: action.data,
+      };
     case UPDATE_DATE: {
-      return {...state, openedDate: new Date().toJSON()}
+      return {...state, openedDate: new Date().toJSON()};
     }
     default:
       return state;
