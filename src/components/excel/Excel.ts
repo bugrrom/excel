@@ -5,27 +5,26 @@ import {Formula} from '../folmula/Formula';
 import {Toolbar} from '../toolbar/Toolbar';
 import {Header} from '../header/Header';
 import {ICreateStore} from '../../core/createStore';
-import {StoreSubscriber} from "../../core/StoreSubscriber";
+import {StoreSubscriber} from '../../core/StoreSubscriber';
+import {updateDate} from '../../redux/action';
 
 
 // eslint-disable-next-line no-undef
 
 interface IExcel {
     getRoot: () => IDom,
-    render: () => void
+    init: () => void
 }
 
 export class Excel implements IExcel {
     store: ICreateStore;
-    $el: IDom;
     emitter: Emitter;
     components: ( Header | Toolbar | Formula | Table)[];
     private subscriber: StoreSubscriber;
-    constructor(selector: string,
+    constructor(
         options: {
             components: (Header | Toolbar | Formula | Table)[],
             store: ICreateStore }) {
-      this.$el = $(selector);
       this.components = options.components || [];
       this.store= options.store;
       this.emitter = new Emitter();
@@ -36,7 +35,7 @@ export class Excel implements IExcel {
       const $root = $.create('div', 'excel');
       const componentOptions = {
         emitter: this.emitter,
-        store: this.store
+        store: this.store,
       };
       this.components = this.components.map((Component) => {
         const $el = $.create('div', Component.className);
@@ -48,15 +47,13 @@ export class Excel implements IExcel {
       return $root;
     }
 
-    render() {
-      if (this.$el) {
-        this.$el.append(this.getRoot());
-        this.subscriber.subscribeComponents(this.components)
-        this.components.forEach((component) => component.init());
-      }
+    init() {
+      this.store.dispatch(updateDate());
+      this.subscriber.subscribeComponents(this.components);
+      this.components.forEach((component) => component.init());
     }
     destroy() {
-      this.subscriber.unsubscribeFromStore()
+      this.subscriber.unsubscribeFromStore();
       this.components.forEach((component) => component.destroy());
     }
 }

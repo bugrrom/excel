@@ -3,7 +3,7 @@
   "parserOptions": {
     // Движку нужен проект TS для правил с типами
     "project": "tsconfig.json",
-    "tsconfigRootDir": ".",
+    "tsconfigRootDir": "."
   },
   "env": {
     "es6": true,
