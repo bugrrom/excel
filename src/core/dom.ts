@@ -42,7 +42,6 @@ class Dom implements IDom {
           if (typeof text !== 'undefined') {
             if (this.$el) {
               this.$el.textContent = text;
-              console.log(this.$el.textContent)
             }
             return this;
           }
@@ -206,6 +205,7 @@ class Dom implements IDom {
       }
       return this.$el.getAttribute(name);
     }
+
 }
 
 export function $(selector: selector): IDom {

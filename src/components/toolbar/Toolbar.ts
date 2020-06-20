@@ -2,7 +2,7 @@ import {IEvent, IOptional} from '../interface';
 import {createToolbar} from './toolbar.template';
 import {$} from '../../core/dom';
 import {ExcelStateComponent} from '../../core/ExcelStateComponent';
-import {initialState} from "../../constants";
+import {defaultStyles} from '../../constants';
 
 interface IToolbar {
   toHTML: () => string
@@ -20,7 +20,7 @@ export class Toolbar extends ExcelStateComponent implements IToolbar {
   }
 
   prepare() {
-    this.initState(initialState);
+    this.initState(defaultStyles);
   }
 
   get template() {
@@ -32,14 +32,14 @@ export class Toolbar extends ExcelStateComponent implements IToolbar {
   }
 
   storeChanged(changes) {
-    this.setState(changes.currentStyles)
+    this.setState(changes.currentStyles);
   }
 
   onClick(event: IEvent) {
     const $target = $(event.target);
     if ($target.data) {
       if ( $target.data.type === 'button') {
-        if ('value' in $target.data){
+        if ('value' in $target.data) {
           const value = JSON.parse(<string>$target.data.value);
           this.$emit('toolbar:applyStyle', value);
         }
