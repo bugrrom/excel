@@ -47,11 +47,12 @@
     <property name="ts.external.directory.path" value="G:\задачи\Exel\node_modules\typescript\lib" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\задачи\Exel" />
+      <recent name="G:\задачи\Exel\src" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="G:\задачи\Exel" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="G:\задачи\Exel\src" />
     </key>
   </component>
   <component name="RunManager" selected="npm.start">
@@ -206,11 +207,11 @@
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
     <state x="734" y="257" key="#com.intellij.ide.util.MemberChooser/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1591289613216" />
-    <state x="2474" y="135" key="CommitChangelistDialog2" timestamp="1592669600051">
+    <state x="2474" y="135" key="CommitChangelistDialog2" timestamp="1592669742283">
       <screen x="1920" y="0" width="1858" height="1080" />
     </state>
     <state x="554" y="135" key="CommitChangelistDialog2/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1591349594499" />
-    <state x="2474" y="135" key="CommitChangelistDialog2/0.0.1858.1080/1920.0.1858.1080@1920.0.1858.1080" timestamp="1592669600051" />
+    <state x="2474" y="135" key="CommitChangelistDialog2/0.0.1858.1080/1920.0.1858.1080@1920.0.1858.1080" timestamp="1592669742283" />
     <state x="563" y="319" key="EditFileWatcherDialog" timestamp="1590437220480">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
@@ -244,11 +245,11 @@
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
     <state x="411" y="257" key="SettingsEditor/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1590437216106" />
-    <state x="2441" y="274" key="Vcs.Push.Dialog.v2" timestamp="1592669710476">
+    <state x="2441" y="274" key="Vcs.Push.Dialog.v2" timestamp="1592669746109">
       <screen x="1920" y="0" width="1858" height="1080" />
     </state>
     <state x="521" y="274" key="Vcs.Push.Dialog.v2/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1591349601490" />
-    <state x="2441" y="274" key="Vcs.Push.Dialog.v2/0.0.1858.1080/1920.0.1858.1080@1920.0.1858.1080" timestamp="1592669710476" />
+    <state x="2441" y="274" key="Vcs.Push.Dialog.v2/0.0.1858.1080/1920.0.1858.1080@1920.0.1858.1080" timestamp="1592669746109" />
     <state x="2658" y="458" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1592636439253">
       <screen x="1920" y="0" width="1858" height="1080" />
     </state>
