@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d6f003f3-5989-4022-a64b-3a6653952d56" name="Default Changelist" comment="fix error dashboard function">
-      <change afterPath="$PROJECT_DIR$/dist/bundle.7bedbf5a3afabf67ea42.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/bundle.7bedbf5a3afabf67ea42.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
+    <list default="true" id="d6f003f3-5989-4022-a64b-3a6653952d56" name="Default Changelist" comment="gh-pages">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,7 +141,7 @@
       <workItem from="1592386916677" duration="9634000" />
       <workItem from="1592474688055" duration="6928000" />
       <workItem from="1592548242810" duration="12358000" />
-      <workItem from="1592636274047" duration="3689000" />
+      <workItem from="1592636274047" duration="4047000" />
     </task>
     <task id="LOCAL-00001" summary="Finish base table logic">
       <created>1591349596496</created>
@@ -173,7 +171,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592668360785</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="gh-pages">
+      <created>1592669402322</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1592669402322</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,7 +189,8 @@
     <MESSAGE value="Finish redux and table logic" />
     <MESSAGE value="Finish routing logic" />
     <MESSAGE value="fix error dashboard function" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix error dashboard function" />
+    <MESSAGE value="gh-pages" />
+    <option name="LAST_COMMIT_MESSAGE" value="gh-pages" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2441" y="199" key="#ESLint" timestamp="1592220570253">
@@ -200,11 +206,11 @@
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
     <state x="734" y="257" key="#com.intellij.ide.util.MemberChooser/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1591289613216" />
-    <state x="2474" y="135" key="CommitChangelistDialog2" timestamp="1592669401712">
+    <state x="2474" y="135" key="CommitChangelistDialog2" timestamp="1592669600051">
       <screen x="1920" y="0" width="1858" height="1080" />
     </state>
     <state x="554" y="135" key="CommitChangelistDialog2/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1591349594499" />
-    <state x="2474" y="135" key="CommitChangelistDialog2/0.0.1858.1080/1920.0.1858.1080@1920.0.1858.1080" timestamp="1592669401712" />
+    <state x="2474" y="135" key="CommitChangelistDialog2/0.0.1858.1080/1920.0.1858.1080@1920.0.1858.1080" timestamp="1592669600051" />
     <state x="563" y="319" key="EditFileWatcherDialog" timestamp="1590437220480">
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
@@ -238,11 +244,11 @@
       <screen x="0" y="0" width="1858" height="1080" />
     </state>
     <state x="411" y="257" key="SettingsEditor/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1590437216106" />
-    <state x="2441" y="274" key="Vcs.Push.Dialog.v2" timestamp="1592669406507">
+    <state x="2441" y="274" key="Vcs.Push.Dialog.v2" timestamp="1592669710476">
       <screen x="1920" y="0" width="1858" height="1080" />
     </state>
     <state x="521" y="274" key="Vcs.Push.Dialog.v2/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1591349601490" />
-    <state x="2441" y="274" key="Vcs.Push.Dialog.v2/0.0.1858.1080/1920.0.1858.1080@1920.0.1858.1080" timestamp="1592669406507" />
+    <state x="2441" y="274" key="Vcs.Push.Dialog.v2/0.0.1858.1080/1920.0.1858.1080@1920.0.1858.1080" timestamp="1592669710476" />
     <state x="2658" y="458" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1592636439253">
       <screen x="1920" y="0" width="1858" height="1080" />
     </state>
