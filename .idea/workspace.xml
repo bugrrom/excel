@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d6f003f3-5989-4022-a64b-3a6653952d56" name="Default Changelist" comment="fix error dashboard function">
+      <change afterPath="$PROJECT_DIR$/dist/bundle.7bedbf5a3afabf67ea42.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/bundle.7bedbf5a3afabf67ea42.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="MERGE" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="ProjectId" id="1bzNsuAHiIu07bTHWfma9oKKX5w" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="js.linters.configure.manually.selectedeslint" value="true" />
+    <property name="last_opened_file_path" value="G:/courses/js/[Владилен Минин] JavaScript. Стань Senior Frontend Разработчиком (2020)/[sharewood.biz] 07.Роутинг и новые страницы/07_06_Смена страниц" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.selected.package.eslint" value="$PROJECT_DIR$/node_modules/eslint" />
+    <property name="node.js.selected.package.standard" value="" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="watcher.settings" />
+    <property name="ts.external.directory.path" value="G:\задачи\Exel\node_modules\typescript\lib" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\задачи\Exel" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\задачи\Exel\src" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.start">
+    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.start" />
+        <item itemvalue="npm.build" />
+        <item itemvalue="npm.build" />
+        <item itemvalue="npm.start" />
+        <item itemvalue="npm.start" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d6f003f3-5989-4022-a64b-3a6653952d56" name="Default Changelist" comment="" />
+      <created>1589631171191</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1589631171191</updated>
+      <workItem from="1589631172597" duration="9916000" />
+      <workItem from="1589719338400" duration="682000" />
+      <workItem from="1590070362571" duration="3014000" />
+      <workItem from="1590138822747" duration="14000" />
+      <workItem from="1590394021360" duration="2087000" />
+      <workItem from="1590414303118" duration="12360000" />
+      <workItem from="1590486222366" duration="4125000" />
+      <workItem from="1590504289754" duration="4173000" />
+      <workItem from="1590577625477" duration="8078000" />
+      <workItem from="1590658934771" duration="10052000" />
+      <workItem from="1590912700871" duration="2490000" />
+      <workItem from="1590927784555" duration="6540000" />
+      <workItem from="1590965365611" duration="2752000" />
+      <workItem from="1591022909414" duration="7582000" />
+      <workItem from="1591124652444" duration="618000" />
+      <workItem from="1591196658993" duration="16142000" />
+      <workItem from="1591260286331" duration="24460000" />
+      <workItem from="1591343307262" duration="3466000" />
+      <workItem from="1591358359927" duration="107000" />
+      <workItem from="1591432267074" duration="6391000" />
+      <workItem from="1591460972790" duration="320000" />
+      <workItem from="1591561789166" duration="2084000" />
+      <workItem from="1591620067108" duration="10300000" />
+      <workItem from="1591693911968" duration="4251000" />
+      <workItem from="1591721893011" duration="6238000" />
+      <workItem from="1591777392978" duration="15698000" />
+      <workItem from="1592193580302" duration="6330000" />
+      <workItem from="1592236380510" duration="1341000" />
+      <workItem from="1592253776370" duration="604000" />
+      <workItem from="1592302066414" duration="6350000" />
+      <workItem from="1592330798671" duration="3495000" />
+      <workItem from="1592386916677" duration="9634000" />
+      <workItem from="1592474688055" duration="6928000" />
+      <workItem from="1592548242810" duration="12358000" />
+      <workItem from="1592636274047" duration="3689000" />
+    </task>
+    <task id="LOCAL-00001" summary="Finish base table logic">
+      <created>1591349596496</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1591349596496</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Finish redux and table logic">
+      <created>1592474898457</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1592474898457</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Finish routing logic">
+      <created>1592636357956</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1592636357956</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix error dashboard function">
+      <created>1592668360785</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1592668360785</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Finish base table logic" />
+    <MESSAGE value="Finish redux and table logic" />
+    <MESSAGE value="Finish routing logic" />
+    <MESSAGE value="fix error dashboard function" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix error dashboard function" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2441" y="199" key="#ESLint" timestamp="1592220570253">
+      <screen x="1920" y="0" width="1858" height="1080" />
+    </state>
+    <state x="521" y="199" key="#ESLint/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1591798915236" />
+    <state x="2441" y="199" key="#ESLint/0.0.1858.1080/1920.0.1858.1080@1920.0.1858.1080" timestamp="1592220570253" />
+    <state x="691" y="344" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1592486268407">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="691" y="344" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1592486268407" />
+    <state x="734" y="257" key="#com.intellij.ide.util.MemberChooser" timestamp="1591289613216">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="734" y="257" key="#com.intellij.ide.util.MemberChooser/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1591289613216" />
+    <state x="2474" y="135" key="CommitChangelistDialog2" timestamp="1592669401712">
+      <screen x="1920" y="0" width="1858" height="1080" />
+    </state>
+    <state x="554" y="135" key="CommitChangelistDialog2/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1591349594499" />
+    <state x="2474" y="135" key="CommitChangelistDialog2/0.0.1858.1080/1920.0.1858.1080@1920.0.1858.1080" timestamp="1592669401712" />
+    <state x="563" y="319" key="EditFileWatcherDialog" timestamp="1590437220480">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="563" y="319" key="EditFileWatcherDialog/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1590437220480" />
+    <state x="709" y="296" key="FileChooserDialogImpl" timestamp="1592572311731">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="709" y="296" key="FileChooserDialogImpl/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1592572311731" />
+    <state x="2629" y="296" key="FileChooserDialogImpl/0.0.1858.1080/1920.0.1858.1080@1920.0.1858.1080" timestamp="1590071526331" />
+    <state width="1837" height="295" key="GridCell.Tab.0.bottom" timestamp="1592669359340">
+      <screen x="1920" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1837" height="295" key="GridCell.Tab.0.bottom/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1589633732627" />
+    <state width="1837" height="295" key="GridCell.Tab.0.bottom/0.0.1858.1080/1920.0.1858.1080@1920.0.1858.1080" timestamp="1592669359340" />
+    <state width="1837" height="295" key="GridCell.Tab.0.center" timestamp="1592669359340">
+      <screen x="1920" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1837" height="295" key="GridCell.Tab.0.center/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1589633732627" />
+    <state width="1837" height="295" key="GridCell.Tab.0.center/0.0.1858.1080/1920.0.1858.1080@1920.0.1858.1080" timestamp="1592669359340" />
+    <state width="1837" height="295" key="GridCell.Tab.0.left" timestamp="1592669359340">
+      <screen x="1920" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1837" height="295" key="GridCell.Tab.0.left/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1589633732627" />
+    <state width="1837" height="295" key="GridCell.Tab.0.left/0.0.1858.1080/1920.0.1858.1080@1920.0.1858.1080" timestamp="1592669359340" />
+    <state width="1837" height="295" key="GridCell.Tab.0.right" timestamp="1592669359340">
+      <screen x="1920" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1837" height="295" key="GridCell.Tab.0.right/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1589633732627" />
+    <state width="1837" height="295" key="GridCell.Tab.0.right/0.0.1858.1080/1920.0.1858.1080@1920.0.1858.1080" timestamp="1592669359340" />
+    <state x="411" y="257" key="SettingsEditor" timestamp="1590437216106">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="411" y="257" key="SettingsEditor/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1590437216106" />
+    <state x="2441" y="274" key="Vcs.Push.Dialog.v2" timestamp="1592669406507">
+      <screen x="1920" y="0" width="1858" height="1080" />
+    </state>
+    <state x="521" y="274" key="Vcs.Push.Dialog.v2/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1591349601490" />
+    <state x="2441" y="274" key="Vcs.Push.Dialog.v2/0.0.1858.1080/1920.0.1858.1080@1920.0.1858.1080" timestamp="1592669406507" />
+    <state x="2658" y="458" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1592636439253">
+      <screen x="1920" y="0" width="1858" height="1080" />
+    </state>
+    <state x="738" y="458" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1592482479315" />
+    <state x="2658" y="458" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1858.1080/1920.0.1858.1080@1920.0.1858.1080" timestamp="1592636439253" />
+    <state x="2630" y="254" key="git4idea.branch.GitSmartOperationDialog" timestamp="1592668687340">
+      <screen x="1920" y="0" width="1858" height="1080" />
+    </state>
+    <state x="2630" y="254" key="git4idea.branch.GitSmartOperationDialog/0.0.1858.1080/1920.0.1858.1080@1920.0.1858.1080" timestamp="1592668687340" />
+    <state x="668" y="332" key="git4idea.merge.GitPullDialog" timestamp="1591349743216">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="668" y="332" key="git4idea.merge.GitPullDialog/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1591349743216" />
+    <state x="670" y="171" key="refactoring.ChangeSignatureDialog" timestamp="1591726033066">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="670" y="171" key="refactoring.ChangeSignatureDialog/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1591726033066" />
+    <state x="592" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1591821435972">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="592" y="235" width="672" height="678" key="search.everywhere.popup/0.0.1858.1080/1920.0.1858.1080@0.0.1858.1080" timestamp="1591821435972" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/core/dom.ts</url>
+          <line>174</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/core/dom.ts</url>
+          <line>33</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand>
+      <path>
+        <item name="Exel" type="b2602c69:ProjectViewProjectNode" />
+        <item name="Exel" type="462c0819:PsiDirectoryNode" />
+      </path>
+    </expand>
+    <select />
+  </component>
+</project>
