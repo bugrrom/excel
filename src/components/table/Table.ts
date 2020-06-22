@@ -8,7 +8,7 @@ import {IEvent, IOptional} from '../interface';
 import {applyStyle, changeStyles, changeText, tableResizes} from '../../redux/action';
 import {ICreateStore} from '../../core/createStore';
 import {defaultStyles} from '../../constants';
-import { parse } from '../../core/parse';
+import {parse} from '../../core/parse';
 
 interface IExcelComponent {
   init: () => void
@@ -43,9 +43,9 @@ export class Table extends ExcelComponent implements IExcelComponent {
     this.$on('Formula:input', (text) => {
       if (this.selection?.current) {
         if ('text' in this.selection?.current) {
-          this.selection.current.attr('data-value', text).text(parse(text))
+          this.selection.current.attr('data-value', text).text(parse(text));
 
-          this.updateTextInStore(text)
+          this.updateTextInStore(text);
         }
       }
     });
@@ -60,17 +60,17 @@ export class Table extends ExcelComponent implements IExcelComponent {
       this.selection.applyStyle(style);
       this.$dispatch(applyStyle({
         value: style,
+        // @ts-ignore
         ids: this.selection.selectedIds,
       }));
     });
   }
 
   selectCell($cell: Element | IDom | undefined | HTMLElement) {
-
       this.selection?.select($cell);
       this.$emit('table:select', $cell);
-      const styles = $cell.getStyles(Object.keys(defaultStyles))
-      this.$dispatch(changeStyles(styles))
+      const styles = $cell.getStyles(Object.keys(defaultStyles));
+      this.$dispatch(changeStyles(styles));
   }
 
   toHTML(): string {
@@ -137,8 +137,8 @@ export class Table extends ExcelComponent implements IExcelComponent {
   }
 
   onInput(event: IEvent) {
-    /*this.$emit('table:input', $(event.target))*/
-    this.updateTextInStore($(event.target).text())
+    /* this.$emit('table:input', $(event.target))*/
+    this.updateTextInStore($(event.target).text());
   }
 }
 

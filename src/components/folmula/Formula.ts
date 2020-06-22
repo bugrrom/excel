@@ -4,9 +4,11 @@ import {$} from '../../core/dom';
 
 
 interface IFormula {
+  init: () => void,
   toHTML: () => string,
   onInput: (event: IEvent) => void,
-  storeChanged: (currentText: any) => void
+  storeChanged: ({currentText}:{currentText: string}) => void,
+  onKeydown: (event: KeyboardEvent) => void
 }
 
 export class Formula extends ExcelComponent implements IFormula {
@@ -23,7 +25,9 @@ export class Formula extends ExcelComponent implements IFormula {
 
   init() {
     super.init();
-    this.$formula = this.$root.find('#formula');
+    if ('find' in this.$root) {
+      this.$formula = this.$root.find('#formula');
+    }
     this.$on('table:select', ($cell) => {
       this.$formula.text($cell.data.value);
     });
@@ -36,7 +40,7 @@ export class Formula extends ExcelComponent implements IFormula {
     `;
   }
 
-  storeChanged({currentText}) {
+  storeChanged({currentText}:{currentText: string}) {
     this.$formula.text(currentText);
   }
 

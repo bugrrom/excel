@@ -1,4 +1,5 @@
 import {ExcelComponent} from './ExcelComponent';
+import {defaultStylesType} from '../constants';
 
 export class ExcelStateComponent extends ExcelComponent {
   constructor(...args) {
@@ -11,7 +12,7 @@ export class ExcelStateComponent extends ExcelComponent {
   initState(state = {}) {
     this.state = {...state};
   }
-  setState(newState) {
+  setState(newState: defaultStylesType) {
     this.state = {...this.state, ...newState};
     if ('html' in this.$root) {
       this.$root.html(this.template);

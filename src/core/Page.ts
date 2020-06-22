@@ -1,6 +1,12 @@
-export class Page {
+type PageType = {
+  getRoot: () => void
+  afterRender: () => void
+  destroy: () => void
+}
+
+export class Page implements PageType{
   params: any;
-  constructor(params) {
+  constructor(params: any) {
     this.params = params;
   }
   getRoot() {

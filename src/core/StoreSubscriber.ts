@@ -1,17 +1,22 @@
-import {ICreateStore} from './createStore';
+import {ICreateStore, subscribe} from './createStore';
 import {isEqual} from './utils';
 
-export class StoreSubscriber {
-    private sub: null;
+interface IStoreSubscriber {
+    subscribeComponents: (components: any) => void
+    unsubscribeFromStore: () => void
+}
+
+export class StoreSubscriber implements IStoreSubscriber{
+    private sub: subscribe| null;
     private store: ICreateStore;
-    private prevState: {} | ICreateStore;
+    private prevState: ICreateStore | void | {};
     constructor(store: ICreateStore) {
       this.store = store;
       this.sub = null;
       this.prevState = {};
     }
 
-    subscribeComponents(components) {
+    subscribeComponents(components: any) {
       this.prevState = this.store.getState();
       this.sub = this.store.subscribe((state) => {
         Object.keys(state).forEach((key) => {
@@ -29,6 +34,8 @@ export class StoreSubscriber {
     }
 
     unsubscribeFromStore() {
-      this.sub.unsubscribe();
+      if (this.sub) {
+        this.sub.unsubscribe();
+      }
     }
 }

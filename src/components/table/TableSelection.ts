@@ -5,6 +5,7 @@ export interface ITableSelection {
     select: ($el: DOMRect | HTMLElement | IDom | Element) => void,
     selectGroup: ($group: HTMLElement[]) => void,
     clear: () => void
+    applyStyle: (style: any) => void
 }
 
 
@@ -15,6 +16,7 @@ export class TableSelection implements ITableSelection {
     constructor() {
       this.group = [];
       this.current = null;
+
     }
 
     select($el: DOMRect | HTMLElement | IDom | Element) {
@@ -48,7 +50,7 @@ export class TableSelection implements ITableSelection {
           'addClass' in el ? el.addClass(TableSelection.className) : null);
     }
 
-    applyStyle(style) {
+    applyStyle(style: any) {
       this.group.forEach(($el)=>$el.css(style));
     }
 }

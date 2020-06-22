@@ -9,14 +9,22 @@ import {Toolbar} from '../components/toolbar/Toolbar';
 import {Formula} from '../components/folmula/Formula';
 import {Table} from '../components/table/Table';
 
-function storageName(param) {
-  return 'excel:' + param
+function storageName(param: string) {
+  return 'excel:' + param;
 }
 
-export class ExcelPage extends Page {
+type ExcelPageType = {
+  getRoot: () => void
+  afterRender: () => void
+  destroy: () => void
+}
+
+export class ExcelPage extends Page implements ExcelPageType {
+  excel: Excel | undefined;
   getRoot() {
-    const params = this.params ? this.params : Date.now().toString()
-    const state = storage(storageName(params))
+    const params = this.params ? this.params : Date.now().toString();
+    const state = storage(storageName(params));
+    // eslint-disable-next-line new-cap
     const store = new createStore(rootReducer, normalizeInitialState(state));
     const stateListener = debounce((state) => {
       storage(storageName(params), state);
@@ -29,12 +37,16 @@ export class ExcelPage extends Page {
       store,
     });
 
-    return this.excel.getRoot()
+    return this.excel.getRoot();
   }
   afterRender() {
-    this.excel.init()
+    if (this.excel) {
+      this.excel.init();
+    }
   }
   destroy() {
-    this.excel.destroy()
+    if (this.excel) {
+      this.excel.destroy();
+    }
   }
 }

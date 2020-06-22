@@ -23,7 +23,8 @@ export class DOMListener implements IDomListener {
       this.listeners.forEach((listener) => {
         const method = getMethodName(listener);
         if (!this[method]) {
-          throw new Error(`Method ${method} is not implemented in ${this.name || ''} Component`);
+          throw new Error(`Method ${method} is not implemented in 
+            ${this.name || ''} Component`);
         }
         this[method] = this[method].bind(this);
         if ('on' in this.$root && this.$root.on) {
@@ -35,7 +36,6 @@ export class DOMListener implements IDomListener {
       this.listeners.forEach( (listener) => {
         const method = getMethodName(listener);
         if ('off' in this.$root) {
-
           this.$root.off(listener, this[method]);
         }
       });

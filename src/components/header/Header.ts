@@ -45,14 +45,16 @@ export class Header extends ExcelComponent implements IHeader {
 
     onClick(event: IEvent) {
       const $target = $(event.target);
-      if ($target.data.button === 'remove') {
-        const decision = confirm('Вы действительно хотите удалить эту таблицу ?');
-        if (decision) {
-          localStorage.removeItem('excel:' + ActiveRoute.param);
+      if ($target.data) {
+        if ($target.data.button === 'remove') {
+          const decision = confirm('Вы действительно хотите удалить эту таблицу ?');
+          if (decision) {
+            localStorage.removeItem('excel:' + ActiveRoute.param);
+            ActiveRoute.navigation('/');
+          }
+        } else if ($target.data.button === 'exit') {
           ActiveRoute.navigation('/');
         }
-      } else if ($target.data.button === 'exit') {
-        ActiveRoute.navigation('/');
       }
     }
 }

@@ -46,9 +46,9 @@ export function tableResize($root: HTMLElement | Element | IDom, event: IEvent) 
       resolve({
         value,
         type,
+        // @ts-ignore
         id: type === 'coll'? $parent.data.col : $parent.data.row,
       });
     };
   });
-
 }

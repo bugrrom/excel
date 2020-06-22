@@ -4,48 +4,45 @@ import {
   CURRENT_STYLE,
   TABLE_RESIZE,
   CHANGE_TITLE,
-  UPDATE_DATE}
-  from './type';
-
-
-export type actionType = {type: string, data?: any}
-export type stateType = {
-  colState: any,
-  rowState: any,
-  currentText: any,
-  dataState: any
+  UPDATE_DATE,
 }
+  from './type';
+import {iDefaultState} from './initialState';
 
-export function rootReducer(state: stateType, action: actionType) {
+
+export type actionType = {type: string, payload?: any}
+
+
+export function rootReducer(state: iDefaultState, action: actionType) {
   let field;
   let val;
   switch (action.type) {
     case TABLE_RESIZE:
-      field = action.data.type === 'coll' ? 'colState' : 'rowState';
+      field = action.payload.type === 'coll' ? 'colState' : 'rowState';
       return {...state, [field]: value(state, field, action)};
     case CHANGE_TEXT:
       field = 'dataState';
       return {
         ...state,
-        currentText: action.data.value,
+        currentText: action.payload.value,
         dataState: value(state, field, action)};
     case CURRENT_STYLE:
       return {
-        ...state, currentStyles: action.data,
+        ...state, currentStyles: action.payload,
       };
     case APPLY_STYLE:
       field = 'stylesState';
       val = state[field] || {};
-      action.data.ids.forEach( (id) => {
-        val[id] = {...val[id], ...action.data.value};
+      action.payload.ids.forEach( (id) => {
+        val[id] = {...val[id], ...action.payload.value};
       });
       return {
         ...state, [field]: val,
-        currentStyles: {...state.currentStyles, ...action.data.value},
+        currentStyles: {...state.currentStyles, ...action.payload.value},
       };
     case CHANGE_TITLE:
       return {
-        ...state, title: action.data,
+        ...state, title: action.payload,
       };
     case UPDATE_DATE: {
       return {...state, openedDate: new Date().toJSON()};
@@ -56,8 +53,8 @@ export function rootReducer(state: stateType, action: actionType) {
   return state;
 }
 
-function value(state, field, action) {
+function value(state: iDefaultState, field: string, action: actionType) {
   const val = state[field] || {};
-  val[action.data.id] = action.data.value;
+  val[action.payload.id] = action.payload.value;
   return val;
 }

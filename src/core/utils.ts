@@ -1,4 +1,4 @@
-export function capitalize(string: string) {
+export function capitalize(string: string): string {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
@@ -11,7 +11,8 @@ export function range(start: number, end: number) {
   );
 }
 
-export function nextSelection(key: string, {row, col}: {row: number, col: number}): string {
+export function nextSelection(key: string, {row, col}:
+    {row: number, col: number}): string {
   switch (key) {
     case 'Enter':
     case 'ArrowDown':
@@ -39,7 +40,7 @@ export function storage(key: string, data = null) {
 }
 
 export function isEqual(a: any, b: any) {
-  if (typeof a === 'object' && typeof b === 'object'){
+  if (typeof a === 'object' && typeof b === 'object') {
     return JSON.stringify(a) === JSON.stringify(b);
   }
   return a === b;
@@ -51,7 +52,7 @@ export function camelToDashCase(str) {
 
 export function toInlineStyles(styles = {}) {
   return Object.keys(styles)
-      .map( (key) => `${camelToDashCase(key)} : ${styles[key]}`).join(';')
+      .map( (key) => `${camelToDashCase(key)} : ${styles[key]}`).join(';');
 }
 
 export function debounce(fn, wait) {
@@ -60,13 +61,12 @@ export function debounce(fn, wait) {
     const later = () => {
       clearTimeout(timeout);
       fn(...args);
-    }
+    };
     clearTimeout(timeout);
     timeout = setTimeout(later, wait);
-
-  }
+  };
 }
 
 export function clone(obj) {
-  return JSON.parse(JSON.stringify(obj))
+  return JSON.parse(JSON.stringify(obj));
 }

@@ -1,7 +1,7 @@
 import {DOMListener} from './DOMListener';
 import {IEmitter, IOptional} from '../components/interface';
 import {IDom} from './dom';
-import { ICreateStore} from './createStore';
+import {ICreateStore} from './createStore';
 import {actionType} from '../redux/rootReducer';
 
 
@@ -52,15 +52,13 @@ export class ExcelComponent extends DOMListener implements IExcelComponent {
     return '';
   }
 
-  storeChanged() {
 
-  }
 
   init() {
     this.initDomListeners();
   }
 
-  isWatching(key: any) {
+  isWatching(key: string) {
     return this.subscribe.includes(key);
   }
 

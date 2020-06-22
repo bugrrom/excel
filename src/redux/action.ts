@@ -1,45 +1,49 @@
 import {
+  ActionTypes,
   APPLY_STYLE,
   CHANGE_TEXT,
   CHANGE_TITLE,
   CURRENT_STYLE,
   TABLE_RESIZE,
-  UPDATE_DATE} from './type';
+  UPDATE_DATE
+} from './type';
 
-export function tableResizes(data: any) {
+export function tableResizes(payload: any): ActionTypes {
   return {
     type: TABLE_RESIZE,
-    data,
+    payload,
   };
 }
 
-export function changeText(data: any) {
+export function changeText(payload: any): ActionTypes {
   return {
     type: CHANGE_TEXT,
-    data,
+    payload,
   };
 }
-export function changeStyles(data) {
+export function changeStyles(payload): ActionTypes {
   return {
     type: CURRENT_STYLE,
-    data,
+    payload,
   };
 }
-export function applyStyle(data) {
+export function applyStyle(payload): ActionTypes {
   return {
     type: APPLY_STYLE,
-    data,
+    payload,
   };
 }
-export function changeTitle(data) {
+export function changeTitle(payload): ActionTypes {
   return {
     type: CHANGE_TITLE,
-    data,
+    payload,
   };
 }
 
-export function updateDate() {
+export function updateDate(): ActionTypes {
   return {
     type: UPDATE_DATE,
   };
 }
+
+

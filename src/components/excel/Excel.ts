@@ -14,6 +14,7 @@ import {updateDate} from '../../redux/action';
 interface IExcel {
     getRoot: () => IDom,
     init: () => void
+    destroy: () => void
 }
 
 export class Excel implements IExcel {

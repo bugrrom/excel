@@ -6,6 +6,7 @@ import {defaultStyles} from '../../constants';
 
 interface IToolbar {
   toHTML: () => string
+  prepare: () => void
 }
 
 export class Toolbar extends ExcelStateComponent implements IToolbar {

@@ -1,15 +1,15 @@
 import {clone} from '../core/utils';
 import {defaultStyles} from '../constants';
 
-interface iDefaultState {
-  colState: any,
-  rowState: any,
-  dataState: any,
-  stylesState: any,
-  currentText: string,
-  currentStyles: any,
-  title: string,
-  openedData: any
+export interface iDefaultState {
+    colState: object,
+    rowState: object,
+    dataState: object,
+    stylesState: object,
+    currentText: string,
+    currentStyles: typeof defaultStyles,
+    title: string,
+    openedData: string
 }
 
 const defaultState: iDefaultState = {
@@ -23,12 +23,12 @@ const defaultState: iDefaultState = {
   openedData: new Date().toJSON(),
 };
 
-const normalize = (s) => ({
+const normalize = (s: iDefaultState) => ({
   ...s,
   currentStyles: defaultStyles,
   currentText: '',
 });
 
-export function normalizeInitialState(state) {
+export function normalizeInitialState(state: iDefaultState): iDefaultState {
   return state ? normalize(state) : clone(defaultState);
 }

@@ -27,6 +27,7 @@ export interface IDom {
     id: (parse?: boolean | undefined) =>
         string | { row: number; col: number; } | undefined
     focus: () => this
+    attr: (name: string, value: string) => this
 }
 
 class Dom implements IDom {
@@ -191,21 +192,32 @@ class Dom implements IDom {
       return this;
     }
 
-    getStyles(styles = []) {
-      return styles.reduce((res, s) => {
-        res[s] = this.$el.style[s];
+    getStyles(styles: string[] = []) {
+      return styles.reduce((res, s: string) => {
+        if (this.$el) {
+          if ('style' in this.$el) {
+            res[s] = this.$el.style[s];
+          }
+        }
         return res;
       }, {});
     }
 
-    attr(name, value) {
+    attr(name: string, value: string) {
       if (value) {
-        this.$el.setAttribute(name, value);
-        return this;
+        if (this.$el) {
+          if ('setAttribute' in this.$el) {
+            this.$el.setAttribute(name, value);
+            return this;
+          }
+        }
       }
-      return this.$el.getAttribute(name);
+      if (this.$el) {
+        if ('getAttribute' in this.$el) {
+          return this.$el.getAttribute(name);
+        }
+      }
     }
-
 }
 
 export function $(selector: selector): IDom {
