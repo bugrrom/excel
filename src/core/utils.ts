@@ -1,72 +1,59 @@
-export function capitalize(string: string): string {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
+import {defaultStyles} from '../constans';
 
-export function range(start: number, end: number) {
+export const capitalize = (string: string): string => {
+  if (typeof string !== 'string') {
+    return '';
+  }
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
+export const range = (start: number, end: number): number[] => {
   if (start > end) {
     [end, start] = [start, end];
   }
-  return new Array(end - start + 1).fill('').map(
-      (_, index) => start + index
-  );
-}
+  return new Array(end - start + 1)
+      .fill('')
+      .map((e, index) => start + index);
+};
 
-export function nextSelection(key: string, {row, col}:
-    {row: number, col: number}): string {
-  switch (key) {
-    case 'Enter':
-    case 'ArrowDown':
-      row++;
-      break;
-    case 'Tab':
-    case 'ArrowRight':
-      col++;
-      break;
-    case 'ArrowLeft':
-      col = col-1 < 0 ? 0 : col-1;
-      break;
-    case 'ArrowUp':
-      row = row-1 < 0 ? 0 : row-1;
-      break;
-  }
-  return `[data-id="${row}:${col}"]`;
-}
-
-export function storage(key: string, data = null) {
+export const storage = (key: string, data: any =null ) => {
   if (!data) {
     return JSON.parse(<string>localStorage.getItem(key));
   }
   localStorage.setItem(key, JSON.stringify(data));
-}
+};
 
-export function isEqual(a: any, b: any) {
+export const isEqual = <T, U>(a: T, b: U) => {
   if (typeof a === 'object' && typeof b === 'object') {
     return JSON.stringify(a) === JSON.stringify(b);
   }
-  return a === b;
-}
+  // @ts-ignore
+  return a===b;
+};
 
-export function camelToDashCase(str) {
+export const camelToDashCase = (str: string) => {
   return str.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`);
-}
+};
 
-export function toInlineStyles(styles = {}) {
+export const toInlineStyles = (styles = {}) => {
   return Object.keys(styles)
-      .map( (key) => `${camelToDashCase(key)} : ${styles[key]}`).join(';');
-}
+      .map((key) => `${camelToDashCase(key)}: ${(styles as any)[key]}`)
+      .join(';');
+};
 
-export function debounce(fn, wait) {
+export const debounce = (fn: (...arg: any)=>void, wait: number) => {
   let timeout: NodeJS.Timeout;
-  return function(...args) {
+  return function(...args: any) {
     const later = () => {
       clearTimeout(timeout);
-      fn(...args);
+      // @ts-ignore
+      fn.apply(this, args);
     };
     clearTimeout(timeout);
     timeout = setTimeout(later, wait);
   };
-}
+};
 
-export function clone(obj) {
+export const clone = (obj: any) => {
   return JSON.parse(JSON.stringify(obj));
-}
+};

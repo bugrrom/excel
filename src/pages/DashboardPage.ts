@@ -1,12 +1,8 @@
-import {Page} from '../core/Page';
+import {Page} from '../core/page/page';
 import {$} from '../core/dom';
 import {createRecordsTable} from './dashboard.function';
 
-type DashboardPagePage = {
-    getRoot: () => void
-}
-
-export class DashboardPage extends Page implements DashboardPagePage{
+export class DashboardPage extends Page {
   getRoot() {
     const now = Date.now().toString();
     return $.create('div', 'db').html(`

@@ -12,7 +12,19 @@
   },
   "rules": {
     "LF": "off",
-    "require-jsdoc": "off"
+    "require-jsdoc": "off",
+    "new-cap": "off",
+    "@typescript-eslint/no-unsafe-member-access" : "off",
+    "@typescript-eslint/ban-ts-comment" : "off",
+    "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/unbound-method": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "no-invalid-this": "off",
+    "@typescript-eslint/no-misused-promises": "off"
   },
   "plugins": ["@typescript-eslint"],
   "extends": [

@@ -1,6 +1,6 @@
 import {storage} from '../core/utils';
 
-function toHtml(key: string | null) {
+const toHtml = (key: string | null) => {
   let model;
   let id;
   if (key) {
@@ -11,19 +11,19 @@ function toHtml(key: string | null) {
          <li class="db__record">
           <a href="#excel/${id}">${model.title}</a>
           <strong>
-            ${new Date(model.openedDate).toLocaleDateString()}
-            ${new Date(model.openedDate).toLocaleTimeString()}
+            ${new Date(model.openDate).toLocaleDateString()}
+            ${new Date(model.openDate).toLocaleTimeString()}
           </strong>
         </li>
     `;
-}
+};
 
-function getAllKeys() {
+const getAllKeys = () => {
   const keys = [];
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
     if (key) {
-      if (!key.includes('excel')) {
+      if (!key.includes('excel:')) {
         continue;
       }
     }
@@ -31,9 +31,9 @@ function getAllKeys() {
     keys.push(key);
   }
   return keys;
-}
+};
 
-export function createRecordsTable() {
+export const createRecordsTable = () => {
   const keys: (string|null)[] = getAllKeys();
   if (!keys.length) {
     return `<p>Вы пока не создали ни одной таблицы</p>`;
@@ -48,4 +48,4 @@ export function createRecordsTable() {
         ${keys.map(toHtml).join('')}
       </ul>
     `;
-}
+};
