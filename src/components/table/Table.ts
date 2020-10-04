@@ -1,145 +1,154 @@
-import {ExcelComponent} from '../../core/ExcelComponent';
+import {ExcelComponents} from '../../core/ExcelComponents';
 import {createTable} from './table.template';
-import {tableResize} from './table.resize';
-import {ITableSelection, TableSelection} from './TableSelection';
-import {$, IDom} from '../../core/dom';
-import {nextSelection, range} from '../../core/utils';
-import {IEvent, IOptional} from '../interface';
-import {applyStyle, changeStyles, changeText, tableResizes} from '../../redux/action';
-import {ICreateStore} from '../../core/createStore';
-import {defaultStyles} from '../../constants';
+import {$, Dom} from '../../core/dom';
+import {resizeHandler} from './table.resize';
+import {TableSelection} from './TableSelection';
+import {matrix, nextSelector} from './table.function';
+import {Emitter} from '../../core/Emitter';
+import {CreateStore} from '../../core/store/createStore';
+import {
+  ApplyStyle,
+  ChangeStyles,
+  ChangeTextAction,
+  TableResizeAction,
+} from '../../redux/action';
+import {defaultStyles} from '../../constans';
 import {parse} from '../../core/parse';
+import {IEvent} from '../interface';
 
-interface IExcelComponent {
-  init: () => void
-  toHTML: () => string
-  onMousedown: (event: IEvent) => void
-  selectCell:($cell: Element | IDom | undefined | HTMLElement) => void
-  resizeTable: (event: IEvent) => void
+export type typeTable = {
+    toHTML: () => void
+    onMousedown: (event: IEvent) => void
+    init: () => void
+    selectCell: ($cell: Dom | undefined) => void
+    onKeydown: (event: KeyboardEvent) => void
+    updateTextInStore: (value: string) => void
+    onInput: (event: IEvent) => void
 }
 
-export class Table extends ExcelComponent implements IExcelComponent {
-  static className = 'excel__table';
-  private selection: ITableSelection | undefined;
-  private store: ICreateStore;
+export class Table extends ExcelComponents implements typeTable {
+    static className = 'excel__table';
+    selection: TableSelection | undefined | null;
 
-  constructor($root: HTMLElement | Element | IDom, options: IOptional) {
-    super($root, {
-      name: 'Table',
-      listeners: ['mousedown', 'keydown', 'input'],
-      ...options,
-    });
-    this.store = options.store;
-  }
-
-  init() {
-    super.init();
-    this.selection = new TableSelection();
-    let $cell;
-    if ('find' in this.$root) {
-      $cell = this.$root.find('[data-id="0:0"]');
+    constructor($root: Dom, emitter: Emitter, store: CreateStore) {
+      super($root, {
+        name: 'Table',
+        listeners: ['mousedown', 'keydown', 'input'],
+        emitter,
+        store,
+      });
     }
-    this.selectCell($cell);
-    this.$on('Formula:input', (text) => {
-      if (this.selection?.current) {
-        if ('text' in this.selection?.current) {
-          this.selection.current.attr('data-value', text).text(parse(text));
 
-          this.updateTextInStore(text);
-        }
+    toHTML() {
+      if (this.store?.getState()) {
+        return createTable(50, this.store?.getState());
       }
-    });
-    this.$on('Formula:done', ()=>{
-      if (this.selection?.current) {
-        if ('focus' in this.selection?.current) {
-          this.selection?.current.focus();
+    }
+
+    init() {
+      super.init();
+      this.selection = new TableSelection();
+      const $cell = this.$root.find('[data-id="0:0"]');
+      this.selectCell($cell);
+      this.$on('formula:input', (text) => {
+        if (this.selection?.current) {
+          if (this.selection.current instanceof Dom) {
+            this.selection.current.attr('data-value', text);
+          }
+          if (this.selection.current instanceof Dom) {
+            this.selection.current.text(parse(text));
+          }
         }
-      }
-    });
-    this.$on('toolbar:applyStyle', (style) => {
-      this.selection.applyStyle(style);
-      this.$dispatch(applyStyle({
-        value: style,
+        this.updateTextInStore(text);
+      });
+      this.$on('formula:done', () => {
+        if (this.selection?.current) {
+          if (this.selection.current instanceof Dom) {
+            this.selection.current.onFocus();
+          }
+        }
+      });
+      this.$on('toolbar:applyStyle', (value) => {
+            this.selection?.applyStyle(value);
+            this.$dispatch(ApplyStyle({
+              value,
+              ids: this.selection? this.selection.selectedIds : [],
+            }));
+      });
+    }
+
+    selectCell($cell: Dom | undefined) {
+      if ( this.selection) {
+        this.selection.select($cell);
+        this.$emit('table:select', $cell);
+        const keys = Object.keys(defaultStyles);
+        const styles = $cell?.getStyles(keys);
         // @ts-ignore
-        ids: this.selection.selectedIds,
+        this.$dispatch(ChangeStyles(styles));
+      }
+    }
+
+    async resizeTable(event: IEvent) {
+      try {
+        // @ts-ignore
+        const res :{value: string, id: string, type: string} =
+            await resizeHandler(event, this.$root);
+        // eslint-disable-next-line new-cap
+        this.$dispatch(TableResizeAction(res));
+      } catch (e) {
+        console.warn('Resize error', e.message);
+      }
+    }
+
+    onMousedown(event: IEvent): void {
+      if ('target' in event && event.target.dataset.resize) {
+        this.resizeTable(event);
+      } else if ('target' in event && event.target.dataset.type === 'cell') {
+        const $target = $(event.target);
+        if (event.shiftKey) {
+          // @ts-ignore
+          const target: { row: number; col: number } =
+                    $target.id(true);
+          const current: { row: number, col: number } =
+                    // @ts-ignore
+                    this.selection.current.id(true);
+          const $cells =
+                    matrix(target, current).map((id) =>
+                      this.$root.find(`[data-id="${id}"]`));
+                this.selection?.selectGroup($cells);
+        } else {
+          this.selectCell($target);
+        }
+      }
+    }
+    onKeydown(event: KeyboardEvent) {
+      const keys = [
+        'Enter',
+        'Tab',
+        'ArrowUp',
+        'ArrowDown',
+        'ArrowLeft',
+        'ArrowRight'];
+      const {key} = event;
+      if (keys.includes(key) && !event.shiftKey) {
+        event.preventDefault();
+        // @ts-ignore
+        const id = this.selection?.current.id(true);
+        const $next = this.$root.find(nextSelector(key, id));
+        this.selectCell($next);
+      }
+    }
+
+    updateTextInStore(value: string) {
+      this.$dispatch(ChangeTextAction({
+        // @ts-ignore
+        id: this.selection?.current.id(),
+        value,
       }));
-    });
-  }
-
-  selectCell($cell: Element | IDom | undefined | HTMLElement) {
-      this.selection?.select($cell);
-      this.$emit('table:select', $cell);
-      const styles = $cell.getStyles(Object.keys(defaultStyles));
-      this.$dispatch(changeStyles(styles));
-  }
-
-  toHTML(): string {
-    return createTable(25, this.store.getState());
-  }
-
-  async resizeTable(event: IEvent) {
-    try {
-      const data = await tableResize(this.$root, event);
-      this.$dispatch(tableResizes(data));
-    } catch (e) {
-      console.warn(e);
     }
-  }
 
-  onMousedown(event: IEvent) {
-    if ('target' in event && event.target.dataset.resize) {
-      this.resizeTable(event);
-    } else if ('target' in event && event.target.dataset.type === 'cell') {
-      const $target: IDom | HTMLElement[] | DOMRect | HTMLElement =
-          $(event.target);
-      if (event.ctrlKey) {
-        console.log(event.ctrlKey);
-      } else if (event.shiftKey) {
-        const target = $target.id(true);
-        const current = this.selection.current.id(true);
-        const cols = range(current.col, target.col);
-        const rows = range(current.row, target.row);
-        const ids = cols.reduce((acc, col) => {
-          rows.forEach((row) => acc.push(`${row}:${col}`));
-          return acc;
-        }, []);
-        const $cells = ids.map((id) => this.$root.find(`[data-id="${id}"]`));
-        this.selection?.selectGroup($cells);
-      } else {
-        this.selectCell($target);
-      }
+    onInput(event: IEvent) {
+      this.updateTextInStore($(event.target).text());
     }
-  }
-
-  onKeydown(event: KeyboardEvent) {
-    const keys =
-        ['Enter', 'Tab', 'ArrowLeft', 'ArrowRight', 'ArrowDown', 'ArrowUp'];
-    if (keys.includes(event.key) && !event.shiftKey) {
-      event.preventDefault();
-      if (this.selection?.current) {
-        let id;
-        if ('id' in (this.selection?.current)) {
-          id = this.selection?.current.id(true);
-        }
-        if ('find' in this.$root) {
-          const $next = this.$root.find(nextSelection(event.key, id));
-          this.selectCell($next);
-        }
-      }
-    }
-  }
-
-  updateTextInStore(value) {
-    this.$dispatch(changeText({
-      id: this.selection?.current.id(),
-      value,
-    }));
-  }
-
-  onInput(event: IEvent) {
-    /* this.$emit('table:input', $(event.target))*/
-    this.updateTextInStore($(event.target).text());
-  }
 }
-
 

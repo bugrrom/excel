@@ -1,54 +1,52 @@
-import {$, IDom} from '../../core/dom';
+import {$, Dom} from '../../core/dom';
 import {IEvent} from '../interface';
 
 
-// eslint-disable-next-line max-len
-export function tableResize($root: HTMLElement | Element | IDom, event: IEvent) {
-  return new Promise((resolve) => {
-    const $resizer = $(event.target);
-    const $parent = $resizer.closest('[data-type="resizable"]');
-    const coords = $parent.getCoords();
-    const type = $resizer.data ? $resizer.data.resize : null;
+export function resizeHandler(event: IEvent, $root: Dom) {
+  return new Promise(((resolve) => {
+    const $resize = $(event.target);
+    const $parent = $resize.closest('[data-type="resizable"]');
+    const coords: DOMRect = $parent.getCoords();
+    const type = $resize.data ? $resize.data.resize : null;
+    const sideProp = type === 'col' ? 'bottom' : 'right';
     let value: string;
-    $resizer.css({opacity: 1});
-    let cells: NodeListOf<Element> | HTMLElement[] | undefined;
-    if ('findAll' in $root) {
-      cells =
-          $root.findAll(`[data-col="${$parent.data ?$parent.data.col: ''}"]`);
-    }
+    $resize.css({opacity: 1, [sideProp]: '-5000px'});
+    document.onmousedown= () => {
+      return false;
+    };
     document.onmousemove = (e) => {
-      if (type === 'coll') {
-        if (coords?.right) {
-          const delta = Math.floor(e.pageX - coords.right);
-          value = String(coords.width + delta);
-          $resizer.css({right: -delta + 'px', bottom: '-5000px'});
-        }
+      if ( type === 'col') {
+        const delta = e.pageX - coords?.right;
+        value = String(coords?.width + delta);
+        $resize.css({right: String(-delta) + 'px'});
       } else {
-        if (coords) {
-          const delta = Math.floor(e.pageY - coords?.bottom);
-          value = String(coords.height + delta);
-          $resizer.css({bottom: -delta + 'px', right: '-5000px'});
-        }
+        const delta = e.pageY - coords?.bottom;
+        value = String(coords?.height + delta);
+        $resize.css({bottom: String(-delta)+ 'px'});
       }
     };
     document.onmouseup = () => {
       document.onmousemove = null;
       document.onmouseup = null;
-      if (type === 'coll') {
+      document.onmousedown = null;
+      if (type === 'col') {
         $parent.css({width: value + 'px'});
-        if (cells) {
-          cells.forEach((el : Element) => el.style.width = value + 'px');
-        }
+        $root
+            .findAll(
+                `[data-col="${$parent.data ? $parent.data.col : null}"]`
+            )
+            // @ts-ignore
+            .forEach((el) => el.style.width = value + 'px');
       } else {
         $parent.css({height: value + 'px'});
       }
-      $resizer.css({opacity: 0, bottom: 0, right: 0});
       resolve({
         value,
         type,
-        // @ts-ignore
-        id: type === 'coll'? $parent.data.col : $parent.data.row,
+        id: $parent.data ? $parent.data[type?type:''] : null,
       });
+
+      $resize.css({opacity: 0, bottom: '0', right: '0'});
     };
-  });
+  }));
 }

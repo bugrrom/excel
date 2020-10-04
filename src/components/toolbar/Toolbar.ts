@@ -1,50 +1,62 @@
-import {IEvent, IOptional} from '../interface';
+import {Dom} from '../../core/dom';
+import {Emitter} from '../../core/Emitter';
+import {CreateStore} from '../../core/store/createStore';
 import {createToolbar} from './toolbar.template';
 import {$} from '../../core/dom';
 import {ExcelStateComponent} from '../../core/ExcelStateComponent';
-import {defaultStyles} from '../../constants';
+import {defaultStyles, typeDefStyles} from '../../constans';
+import {IEvent} from '../interface';
 
-interface IToolbar {
-  toHTML: () => string
-  prepare: () => void
+export type typeFormula = {
+    toHTML: () => void
+    storeChanged: (changes: {currentStyles: typeDefStyles}) => void
+    onClick: (event: IEvent) => void
 }
 
-export class Toolbar extends ExcelStateComponent implements IToolbar {
-  static className = 'excel__toolbar';
-  constructor($root: HTMLElement | Element, options: IOptional) {
-    super($root, {
-      name: 'Toolbar',
-      listeners: ['click'],
-      ...options,
-      subscribe: ['currentStyles'],
-    });
-  }
+export type typeInitialState = {
+    textAlign: string
+    fontWeight: string
+    textDecoration: string
+    fontStyle: string
+}
 
-  prepare() {
-    this.initState(defaultStyles);
-  }
+export class Toolbar extends ExcelStateComponent implements typeFormula {
+    static className = 'excel__toolbar'
+    constructor($root: Dom, emitter: Emitter, store: CreateStore) {
+      super($root, {
+        name: 'Toolbar',
+        emitter,
+        store,
+        subscribe: ['currentStyles'],
+        listeners: ['click'],
+      });
+    }
 
-  get template() {
-    return createToolbar(this.state);
-  }
+    prepare() {
+      this.initState(defaultStyles);
+    }
 
-  toHTML(): string {
-    return this.template;
-  }
+    get template() {
+      return createToolbar(this.state);
+    }
 
-  storeChanged(changes) {
-    this.setState(changes.currentStyles);
-  }
+    toHTML() {
+      return this.template;
+    }
 
-  onClick(event: IEvent) {
-    const $target = $(event.target);
-    if ($target.data) {
-      if ( $target.data.type === 'button') {
-        if ('value' in $target.data) {
-          const value = JSON.parse(<string>$target.data.value);
+    storeChanged(changes: {currentStyles: typeDefStyles}) {
+      this.setState(changes.currentStyles);
+    }
+
+    onClick(event: IEvent) {
+      const $target = $(event.target);
+      if ($target.data?.type === 'button') {
+        if ($target.data.value) {
+          const value = JSON.parse($target.data.value);
+          const key = Object.keys(value)[0];
           this.$emit('toolbar:applyStyle', value);
+          this.setState({[key]: value[key]});
         }
       }
     }
-  }
 }

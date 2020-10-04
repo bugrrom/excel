@@ -1,28 +1,25 @@
-import {IEmitter} from '../components/interface';
-
-type listeners = any
-
-
-export class Emitter implements IEmitter {
-    listeners: listeners;
+export class Emitter {
+    listeners: [];
     constructor() {
-      this.listeners = {};
+      this.listeners = [];
     }
-
-    emit(event: string, ...args: any) {
-      if (Array.isArray(this.listeners[event])) {
-        this.listeners[event].forEach((listener: any) => {
-          listener(...args);
-        });
+    emit(event: string, ...arg: (number|string)[]) {
+      if (!Array.isArray((this as any).listeners[event])) {
+        return false;
       }
+      (this as any).listeners[event]
+          .forEach((listener: (...arg: (number|string)[]) => void) => {
+            listener(...arg);
+          });
     }
-
-    subscribe(event: string, fn: (text: string) => void) {
-      this.listeners[event] = this.listeners[event] || [];
-      this.listeners[event].push(fn);
+    subscribe(event: string, fn: <T>(...arg: T[]) => void) {
+      (this as any).listeners[event] = (this as any).listeners[event] || [];
+      (this as any).listeners[event].push(fn);
       return () => {
-        this.listeners[event] =
-            this.listeners[event].filter((listener) => listener !== fn);
+        (this as any).listeners[event] =
+                (this as any).listeners[event]
+                    .filter((listener: ()=> void) => listener !==fn);
       };
     }
 }
+

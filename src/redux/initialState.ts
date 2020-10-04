@@ -1,34 +1,34 @@
+import {defaultStyles, defaultTitle} from '../constans';
 import {clone} from '../core/utils';
-import {defaultStyles} from '../constants';
 
-export interface iDefaultState {
-    colState: object,
-    rowState: object,
-    dataState: object,
-    stylesState: object,
+export type typeDefState = {
+    rowState: {[id: string]: string},
+    colState: {[id: string]: string},
+    dataState: {[id: string]: string},
     currentText: string,
-    currentStyles: typeof defaultStyles,
-    title: string,
-    openedData: string
+    currentStyles: typeof defaultStyles
+    stylesState: any
+    title: string
+    openDate: string
 }
 
-const defaultState: iDefaultState = {
-  colState: {},
+export const defaultState: typeDefState = {
   rowState: {},
+  colState: {},
   dataState: {},
-  stylesState: {},
   currentText: '',
   currentStyles: defaultStyles,
-  title: 'Новая таблица',
-  openedData: new Date().toJSON(),
+  stylesState: {},
+  title: defaultTitle,
+  openDate: new Date().toJSON(),
 };
 
-const normalize = (s: iDefaultState) => ({
-  ...s,
+const normalize = (state: typeDefState) => ({
+  ...state,
   currentStyles: defaultStyles,
   currentText: '',
 });
 
-export function normalizeInitialState(state: iDefaultState): iDefaultState {
+export const normalizeInitialState = (state: typeDefState) => {
   return state ? normalize(state) : clone(defaultState);
-}
+};

@@ -1,60 +1,67 @@
-import {$, IDom} from '../../core/dom';
-import {Emitter} from '../../core/Emitter';
-import {Table} from '../table/Table';
-import {Formula} from '../folmula/Formula';
-import {Toolbar} from '../toolbar/Toolbar';
 import {Header} from '../header/Header';
-import {ICreateStore} from '../../core/createStore';
-import {StoreSubscriber} from '../../core/StoreSubscriber';
-import {updateDate} from '../../redux/action';
+import {Formula} from '../formula/Formula';
+import {Toolbar} from '../toolbar/Toolbar';
+import {Table} from '../table/Table';
+import {$, Dom} from '../../core/dom';
+import {Emitter} from '../../core/Emitter';
+import {CreateStore} from '../../core/store/createStore';
+import {StoreSubscriber} from '../../core/store/StoreSubscriber';
+import {UpdateDate} from '../../redux/action';
 
+type typeComponent =
+    (typeof Header| typeof Toolbar| typeof Formula| typeof Table )[]
 
-// eslint-disable-next-line no-undef
+type typeOptions = {
+    component: typeComponent
+    store: CreateStore
+}
 
-interface IExcel {
-    getRoot: () => IDom,
+type typeExcel = {
+    getRoot: () => Dom
     init: () => void
     destroy: () => void
 }
 
-export class Excel implements IExcel {
-    store: ICreateStore;
-    emitter: Emitter;
-    components: ( Header | Toolbar | Formula | Table)[];
+export class Excel implements typeExcel {
+    private components: typeComponent;
+    newComponents: (Header| Toolbar | Formula | Table)[] | null;
+    private emitter: Emitter;
+    private store: CreateStore;
     private subscriber: StoreSubscriber;
-    constructor(
-        options: {
-            components: (Header | Toolbar | Formula | Table)[],
-            store: ICreateStore }) {
-      this.components = options.components || [];
-      this.store= options.store;
+    constructor( options: typeOptions) {
+      this.components = options.component || [];
+      this.newComponents = null;
       this.emitter = new Emitter();
+      this.store = options.store;
       this.subscriber = new StoreSubscriber(this.store);
     }
 
     getRoot() {
       const $root = $.create('div', 'excel');
-      const componentOptions = {
-        emitter: this.emitter,
-        store: this.store,
-      };
-      this.components = this.components.map((Component) => {
-        const $el = $.create('div', Component.className);
-        const component = new Component($el, componentOptions);
-        $el.html(component.toHTML());
-        $root.append($el);
-        return component;
-      });
+      if (this.components) {
+        this.newComponents = this.components.map( (Component) => {
+          const $el = $.create('div', Component.className);
+          const component = new Component($el, this.emitter, this.store);
+          $el.html(component.toHTML());
+          $root.append($el);
+          return component;
+        });
+      }
       return $root;
     }
 
     init() {
-      this.store.dispatch(updateDate());
-      this.subscriber.subscribeComponents(this.components);
-      this.components.forEach((component) => component.init());
+      this.store.dispatch(UpdateDate());
+      if (this.newComponents) {
+        this.subscriber.subscribeComponents(this.newComponents);
+        this.newComponents.forEach((component) => component.init());
+      }
     }
+
     destroy() {
-      this.subscriber.unsubscribeFromStore();
-      this.components.forEach((component) => component.destroy());
+      if (this.newComponents) {
+        this.subscriber.unsubscribeFromStore();
+        this.newComponents.forEach((component) => component.destroy());
+      }
     }
 }

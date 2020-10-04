@@ -1,8 +1,9 @@
-import {toInlineStyles} from "../../core/utils";
-import {defaultStyles} from "../../constants";
-import {parse} from "../../core/parse";
+import {typeDefState} from '../../redux/initialState';
+import {toInlineStyles} from '../../core/utils';
+import {defaultStyles} from '../../constans';
+import {parse} from '../../core/parse';
 
-const CODES = {
+const Codes = {
   A: 65,
   Z: 90,
 };
@@ -10,72 +11,97 @@ const CODES = {
 const DEFAULT_WIDTH = 120;
 const DEFAULT_HEIGHT = 24;
 
-function toCell(state: any, row: number) {
-  return function(_:string, index:number) {
-    const id = `${row}:${index}`;
-    const data = state.dataState[id];
-    const styles = toInlineStyles({
-      ...defaultStyles,
-      ...state.stylesState[id]
-    })
-    return `
-        <div class="cell" contenteditable data-col="${index}" 
-             data-id="${id}"
-             data-type="cell"
-             style="${styles}; width: ${getWidth(state.colState, index)}"
-             data-value="${data || ''}"
-             >${parse(data) || ''}
-         </div>
-    `;
-  };
-}
-
-function toColumn({col, index, width}: {col: string, index: number, width: string}) {
-  return `
-        <div class="column" data-type="resizable" data-col="${index}" style="width: ${width}">
-           ${col}
-           <div class="coll-resize" data-resize="coll"></div>
+const toCell =
+    (i: number, state: typeDefState):
+        (_: string, index: number) => string => {
+      return function(_: string, index: number): string {
+        const id = `${i}:${index}`;
+        const data = state.dataState ? state.dataState[id] : '';
+        const styles =
+            toInlineStyles({...defaultStyles, ...state.stylesState[id]});
+        const width = getWidth(state.colState, String(index));
+        return `
+        <div class="cell" 
+        contenteditable 
+        data-col="${index}" 
+        data-id="${id}"
+        data-type="cell"
+        style="${styles}; width: ${width}"
+        data-value="${data || ''}"
+        >
+          ${parse(data) || ''}
         </div>
-         `;
-}
+    `;
+      };
+    };
 
-function createRow(index: number|null, content: string, state: any): string {
-  // eslint-disable-next-line max-len
-  const resize = index ? ' <div class="row-resize" data-resize="row"></div>' : '';
-  const height = getHeight(state, index);
-  return `
-        <div class="row" data-type="resizable" data-row="${index}" style="height: ${height}">
-            <div class="row-info">
-                ${index?index:''}
-               ${resize}
+const toColumn =
+    ({col, index, width}:
+         {col: string, index: number, width: string}): string => {
+      return `
+        <div 
+          class="column" 
+          data-type="resizable" 
+          data-col="${index}"
+          style="width: ${width}">
+                ${col}
+            <div class="coll-resize" data-resize="col"></div>
+        </div>
+        
+    `;
+    };
+
+const createRow =
+    (index?: number | null,
+        content?: string,
+        state?: { [p: string]: string } | undefined): string => {
+      const resize = index ?
+      ' <div class="row-resize" data-resize="row"></div>' :
+      '';
+      return `
+        <div 
+          class="row" 
+          data-type="resizable" 
+          data-row="${index}" 
+          style="height: ${getHeight(state, String(index? index:''))}">
+            <div class="row-info" >${index ? index : ''}
+              ${resize}
             </div>
-            <div class="row-data">${content}</div>
+            <div class="row-data">${content ? content : ''}</div>
         </div>
     `;
-}
+    };
 
-function toChar(_: string, index: number) {
-  return String.fromCharCode(CODES.A + index);
-}
+const toChar = (_: string, index: number): string => {
+  return String.fromCharCode(Codes.A + index);
+};
 
-function getHeight(state: any, index: number|null) {
-  return (state[index] ? state[index] : DEFAULT_HEIGHT) + 'px';
-}
+const getWidth =
+    (state: { [p: string]: string } | undefined, index: string) => {
+      // eslint-disable-next-line max-len
+      // eslint-disable-next-line max-len,@typescript-eslint/restrict-plus-operands
+      return ((state as { [p: string]: string })[index] || DEFAULT_WIDTH) + 'px';
+    };
 
-function getWidth(state: any, index: number) {
-  return (state[index] ? state[index] : DEFAULT_WIDTH) + 'px';
-}
+const getHeight =
+    (state: { [p: string]: string } | undefined, index: string) => {
+      if (state) {
+        return String(state[index]) + 'px';
+      } else {
+        return String(DEFAULT_HEIGHT) + 'px';
+      }
+    };
 
-function withWidthFrom(state: any) {
+const withWidthFrom = (state: typeDefState) => {
   return function(col: string, index: number) {
     return {
-      col, index, width: getWidth(state.colState, index),
+      col, index, width: getWidth(state.colState, String(index)),
     };
   };
-}
+};
 
-export function createTable(rowsCount = 15, state: any = {}): string {
-  const colsCount = CODES.Z - CODES.A + 1;
+export const createTable = (rowsCount = 15, state: typeDefState): string => {
+  const colsCount = Codes.Z - Codes.A + 1;
   const rows: string[] = [];
   const cols = new Array(colsCount)
       .fill('')
@@ -84,15 +110,13 @@ export function createTable(rowsCount = 15, state: any = {}): string {
       .map(toColumn)
       .join('');
 
-
-  rows.push(createRow(null, cols, {}));
-  for (let i = 0; i< rowsCount; i++) {
+  rows.push(createRow(null, cols));
+  for (let i = 0; i < rowsCount; i++) {
     const cells = new Array(colsCount)
         .fill('')
-        .map(toCell(state, i))
+        .map(toCell(i, state))
         .join('');
     rows.push(createRow(i + 1, cells, state.rowState));
   }
-
   return rows.join('');
-}
+};
